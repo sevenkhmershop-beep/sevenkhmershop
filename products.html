@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+<meta charset="UTF-9">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEVEN KHMER SHOP</title>
+
+<!-- Custom CSS -->
+<link rel="stylesheet" href="style.css?v=11">
+
+<!---Google Font--->
+<link href="https://fonts.googleapis.com/css2?family=Koulen&family=Battambang&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<!-- ✅ ADD THIS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<!-- Tailwind CSS CDN + Font Awesome Icons for better visuals -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  body{
+  font-family: 'Battambang', 'Koulen', sans-serif;
+  }
+.sidebar { transition: transform .3s; }
+.product-card:hover { transform: translateY(-5px); }
+</style>
+</head>
+
+<body class="bg-gray-100">
+
+<!-- 🔷 NAVBAR -->
+<nav class="bg-white p-4 flex justify-between shadow">
+  <button onclick="toggleSidebar()"><i class="text-xl fas fa-bars"></i></button>
+  <h1 class="font-bold text-2xl text-blue-600 mt-1 text-sm md:text-2xl">SEVEN KHMER</h1>
+
+  <div class="flex gap-3">
+    <input id="search"
+       type="text"
+       placeholder="Search product..."
+       oninput="searchProduct()"
+       class="border px-2 rounded w-40 md:w-64">
+
+    <div onclick="toggleCart()" class="relative cursor-pointer">
+      🛒 <span id="count" class="bg-red-500 text-white px-1 text-xs rounded">0</span>
+    </div>
+  </div>
+</nav>
+
+<!-- 🔷 SIDEBAR -->
+
+<div id="sidebar" class="sidebar fixed left-0  top-0 w-64 h-full bg-white shadow -translate-x-full p-4 z-50">
+  <div class="flex justify-between mb-4">
+    <h2 class="font-bold">Categories</h2>
+    <button onclick="toggleSidebar()">✖</button>
+  </div>
+<!-- Category Buttons -->
+<div class="flex flex-col  ">
+
+  <button 
+    class="flex items-center gap-3 p-3 rounded-xl bg-white-500 hover:bg-blue-500 text-black transition duration-300"
+    onclick="filterCategory('')">
+    All
+  </button>
+
+  <button 
+    class="flex items-center gap-3 p-3 rounded-xl bg-white-500 hover:bg-red-500 text-black transition duration-300"
+    onclick="filterCategory('Wallpaper')">
+    Wallpaper
+  </button>
+
+  <button 
+    class="flex items-center gap-3 p-3 rounded-xl bg-white-500 hover:bg-pink-500 text-black transition duration-300"
+    onclick="filterCategory('Wood')">
+    Wood
+  </button>
+
+  <button 
+    class="flex items-center gap-3 p-3 rounded-xl bg-white-500 hover:bg-yellow-500 text-black transition duration-300"
+    onclick="filterCategory('Electronics')">
+    Electronics
+  </button>
+
+  <button 
+    class="flex items-center gap-3 p-3 rounded-xl bg-white-500 hover:bg-green-500 text-black transition duration-300"
+    onclick="filterCategory('Staves')">
+    Staves
+  </button>
+
+  <button 
+    class="flex items-center gap-3 p-3 rounded-xl bg-white-500 hover:bg-purple-500 text-black transition duration-300"
+    onclick="filterCategory('Plastics')">
+    Plastics
+  </button>
+
+  <button 
+    class="flex items-center gap-3 p-3 rounded-xl bg-white-500 hover:bg-teal-500 text-black transition duration-300"
+    onclick="filterCategory('Pot')">
+    POT
+  </button>
+
+</div>
+  <hr class="border-t border-gray-700">
+  <!-- Menu -->
+  <div class="p-5 space-y-3">
+
+    <a href="index.html"
+    class="flex items-center gap-2 p-3 rounded-xl hover:bg-blue-600 transition duration-300">
+      <span class="text-xl">🏠</span>
+      <span>Home</span>
+    </a>
+
+    <a href="promo.html"
+    class="flex items-center gap-2 p-3 rounded-xl
+    hover:bg-pink-600 transition duration-300">
+      <i class="fas fa-tag text-lg"></i>
+      <span>Promotion</span>
+    </a>
+
+    <a href="Contact.html"
+    class="flex items-center gap-2 p-3 rounded-xl
+    hover:bg-green-600 transition duration-300">
+      <i class="fas fa-headset text-lg"></i>
+      <span>Contact</span>
+    </a>
+
+    <a href="products.html"
+    class="flex items-center gap-2 p-3 rounded-xl
+    hover:bg-yellow-500 transition duration-300">
+      <span class="text-xl">🛒</span>
+      <span>Products</span>
+    </a>
+
+    <a href="Entertainment.html"
+    class="flex items-center gap-2 p-3 rounded-xl
+    hover:bg-purple-600 transition duration-300">
+      <span class="text-xl">🎬</span>
+      <span>Entertainment</span>
+    </a>
+
+    <a href="Success.html"
+    class="flex items-center gap-3 p-3 rounded-xl
+    hover:bg-emerald-600 transition duration-300">
+      <i class="fa-solid fa-circle-check "></i>
+      <span>PDF</span>
+    </a>
+
+  </div>
+  <hr class="border-t border-gray-700 h-3">
+  <!-- Bottom Section -->
+  <div class="absolute bottom-0 w-full p-5 ">
+
+    <button onclick="toggleMenu()"
+    class="w-48 bg-gradient-to-r from-red-500 to-red-600
+    hover:from-red-600 hover:to-red-700
+    py-3 rounded-xl font-semibold
+    shadow-lg transition-all duration-300">
+      ⬅️ បិទ Menu
+    </button>
+  </div>
+</div>
+</div>
+
+<!-- 🔷 CART -->
+<div id="cartPanel" class="fixed right-0 top-0 w-64 h-full bg-white shadow translate-x-full p-4 z-50">
+  <h2 class="font-bold flex justify-between">
+    Cart <button onclick="toggleCart()">✖</button>
+  </h2>
+
+  <div id="cartItems"></div>
+  <p class="font-bold mt-3">Total: $<span id="total">0</span></p>
+
+  <!-- PAYMENT -->
+  <button onclick="showQR()" class="bg-green-500 text-white w-full mt-3 py-2">ABA Pay</button>
+  <div id="qrBox" class="hidden text-center mt-3">
+    <img src="image/woods/ACLIDA.jpg" class="mx-auto">
+  </div>
+
+  <!-- INVOICE -->
+  <button onclick="printInvoice()" class="bg-blue-500 text-white w-full mt-2 py-2">Invoice PDF</button>
+
+  <!-- TELEGRAM -->
+  <button onclick="sendTelegram()" class="bg-purple-500 text-white w-full mt-2 py-2">Telegram Order</button>
+  
+  <!-- CLEAR CART -->
+  <button onclick="clearCart()" class="bg-red-500 text-white w-full mt-2 py-2">
+    Clear Cart
+  </button>
+
+</div>
+
+<!-- 🔷 PRODUCTS -->
+<div class="p-6">
+  <div id="products" class="grid grid-cols-2 md:grid-cols-4 gap-4"></div>
+  <div id="pagination" class="flex justify-center mt-4"></div>
+</div>
+
+<!-- 🔷 ADMIN -->
+<div class="bg-white p-4 m-6">
+  <h2 class="font-bold">Admin Add Product</h2>
+  <input id="pName" placeholder="Name" class="border p-1">
+  <input id="pPrice" placeholder="Price" class="border p-1">
+  <button onclick="addProduct()" class="bg-blue-500 text-white px-3">Add</button>
+</div>
+
+ <!-- PRODUCT LIST -->
+  <div id="productList" class="m-6 grid gap-4"></div>
+<!-- INVOICE -->
+  <div id="invoice"
+    class="hidden bg-white p-5"
+    style="width:700px;">
+    <div id="invoiceItems"></div>
+  </div>
+
+<script>
+  // ================= DATA =================
+const products = [
+
+  // ================= ELECTRONIC =================
+
+  {id:1, name:"ឆ្នាំងគំរបដាច់DK 1.0L",price:10.3,category:"Electronics", img:"image/electronics/1.jpg"},
+
+ {id:2, name:"ឆ្នាំងគំរបដាច់DK 1.2L",price:11.8,category:"Electronics", img:"image/electronics/2.jpg"},
+
+  {id:3, name:"ឆ្នាំងគំរបដាច់DK 1.8L",price:13,category:"Electronics", img:"image/electronics/3.jpg"},
+
+  {id:4, name:"ឆ្នាំងគំរបដាច់DK 2.2L",price:20,category:"Electronics", img:"image/electronics/4.jpg"},
+
+  {id:5, name:"ឆ្នាំងមាស 1.0L",price:20,category:"Electronics", img:"image/electronics/5.jpg"},
+
+  {id:6, name:"ឆ្នាំងមាស 1.2L",price:20,category:"Electronics", img:"image/electronics/6.jpg"},
+
+  {id:7, name:"ឆ្នាំងមាស 1.8L",price:20,category:"Electronics", img:"image/electronics/7.jpg"},
+
+  {id:8, name:"ឆ្នាំងកូនជ្រួក 1.0L",price:11,category:"Electronics", img:"image/electronics/8.jpg"},
+
+  {id:9, name:"ឆ្នាំងកូនជ្រួក 1.2L",price:15.5,category:"Electronics", img:"image/electronics/9.jpg"},
+
+  {id:10, name:"ឆ្នាំងកូនជ្រួក 1.8L",price:16.5,category:"Electronics", img:"image/electronics/10.jpg"},
+
+  {id:11, name:"ឆ្នាំងកូនជ្រួក 2.2L",price:20,category:"Electronics", img:"image/electronics/11.jpg"},
+
+  {id:12, name:"ឆ្នាំងSHORHP 1.0L",price:20,category:"Electronics", img:"image/electronics/12.jpg"},
+
+  {id:13, name:"ឆ្នាំងSHORHP 1.2L",price:20,category:"Electronics", img:"image/electronics/14.jpg"},
+
+  {id:14, name:"ឆ្នាំងSHORHP 1.8LL",price:20,category:"Electronics", img:"image/electronics/15.jpg"},
+
+  {id:15, name:"ឆ្នាំងគំរបជាប់SK 1.0L",price:10.3,category:"Electronics",img:"image/electronics/16.jpg"},
+
+  {id:16, name:"ឆ្នាំងគំរបជាប់SK 1.2L",price:2011.8,category:"Electronics", img:"image/electronics/17.jpg"},
+
+  {id:17, name:"ឆ្នាំងគំរបជាប់SK 1.8L",price:13.5,category:"Electronics", img:"image/electronics/18.jpg"},
+
+  {id:18, name:"ឆ្នាំងគំរបជាប់SK 2.2L",price:20,category:"Electronics", img:"image/electronics/19.jpg"},
+  
+  {id:19, name:"កំសៀវអគ្គិសនីSh 2.5L",price:6.5,category:"Electronics",img:"image/electronics/20.jpg"},
+  
+  {id:20, name:"OSAKA 750mm",price:4,category:"Electronics",img:"image/electronics/21.jpg"},
+  
+  {id:21, name:"ម៉ាស៊ីនកិនសាច់ 2L",price:9,category:"Electronics",img:"image/electronics/22.jpg"},
+  
+  {id:22, name:"ម៉ាស៊ីនកិនសាច់ 3L",price:12,category:"Electronics",img:"image/electronics/23.jpg"},
+  
+  {id:23, name:"ម៉ានស៊ីនកិន Coffee",price:4.5,category:"Electronics",img:"image/electronics/24.jpg"},
+  
+  {id:24, name:"កំសៀចអគ្គិសនី 2L",price:5,category:"Electronics",img:"image/electronics/25.jpg"},
+  
+  {id:25, name:"Fan 6T",price:8.5,category:"Electronics",img:"image/electronics/26.jpg"},
+  
+  {id:26, name:"Fan 3T",price:7.5,category:"Electronics",img:"image/electronics/27.jpg"},
+  
+  {id:27, name:"ម៉ាស៊ីនវាយពងទា",price:3.5,category:"Electronics",img:"image/electronics/28.jpg"},
+  
+  {id:28, name:"Eletric BBQ",price:0,category:"Electronics", img:"image/electronics/29.jpg"},
+ 
+  {id:29, name:"Celling Fan 900",price:5.5,category:"Electronics",img:"image/electronics/31.jpg"},
+ 
+  {id:30, name:"Celling Fan 1050",price:8.5,category:"Electronics",img:"image/electronics/32.jpg"},
+ 
+  {id:31, name:"Celling Fan 1200",price:0,category:"Electronics", img:"image/electronics/30.jpg"},
+ 
+  {id:32, name:"panasonic",price:0,category:"Electronics", img:"image/electronics/33.jpg"},
+ 
+  {id:33, name:"ម៉ាស៊ីនទឹកក្រឡុក",price:22,category:"Electronics",img:"image/electronics/34.jpg"},
+ 
+  {id:34, name:"Mosquito Killer",price:3,category:"Electronics", img:"image/electronics/35.jpg"},
+ 
+  {id:35, name:"Mosquito Killer",price:3.5,category:"Electronics",img:"image/electronics/36.jpg"},
+ 
+  {id:36, name:"electric kooking pot",price:22,category:"Electronics", img:"image/electronics/37.jpg"},
+  
+  {id:37, name:"Electric hot pot",price:22,category:"Electronics", img:"image/electronics/38.jpg"},
+ 
+  {id:38, name:"Kettle electric 3L",price:8.5, category:"Electronics",img:"image/electronics/39.jpg"},
+  
+  {id:39, name:"Gas BBQ",price:8.5, category:"Electronics",img:"image/electronics/40.jpg"},
+  
+  {id:40, name:"ស្លាបកង្ហាវៀតណាម 3T",price:0.65, category:"Electronics",img:"image/electronics/41.jpg"},
+  
+  {id:41, name:"ស្លាបកង្ហាវៀតណាម 6T",price:0.75,category:"Electronics", img:"image/electronics/41.jpg"},
+  
+  {id:42, name:"ស្លាបកង្ហាHatari 12inch",price:1,  category:"Electronics", img:"image/electronics/42.jpg"},
+  
+  {id:43, name:"ស្លាបកង្ហាHatari 14inch",price:2,  category:"Electronics", img:"image/electronics/42.jpg"},
+  
+  {id:44, name:"ស្លាបកង្ហាHatari 16inch",price:2.5,category:"Electronics", img:"image/electronics/42.jpg"},
+  
+ {id:45, name:"ប្រ់ីនភ្លើង 5M",price:3,  category:"Electronics", img:"image/electronics/43.jpg"},
+
+ // ================= WOODS =================
+
+  {id:80, name:"ជ្រុញ 18", price:0 ,category:"Wood", img:"image/woods/1.jpg"},
+
+  {id:81, name:"ជ្រុញ 20", price:0 ,category:"Wood", img:"image/woods/2.jpg"},
+
+  {id:82, name:"ជ្រុញ 22", price:0 ,category:"Wood", img:"image/woods/3.jpg"},
+
+  {id:83, name:"ជ្រុញ 24", price:0 ,category:"Wood", img:"image/woods/4.jpg"},
+
+  {id:84, name:"ជ្រុញ 26", price:0 ,category:"Wood", img:"image/woods/5.jpg"},
+
+  {id:85, name:"ជ្រុញ 28", price:0 ,category:"Wood", img:"image/woods/6.jpg"},
+
+  {id:86, name:"ជ្រុញ 30", price:0 ,category:"Wood", img:"image/woods/7.jpg"},
+
+  {id:87, name:"ជ្រុញ 32", price:0 ,category:"Wood", img:"image/woods/8.jpg"},
+
+  {id:88, name:"ជ្រុញ 34", price:0 ,category:"Wood", img:"image/woods/2.jpg"},
+
+  {id:89, name:"ជ្រុញ 36", price:0 ,category:"Wood", img:"image/woods/4.jpg"},
+
+  {id:90, name:"ជ្រុញ 38", price:0 ,category:"Wood", img:"image/woods/5.jpg"},
+
+  {id:91, name:"ជ្រុញជ្រុង 16cm x 20cm", price:0 ,category:"Wood", img:"image/woods/16.png"},
+
+  {id:92, name:"ជ្រុញជ្រុង 18cm x 23cm", price:0 ,category:"Wood", img:"image/woods/17.png"},
+
+  {id:93, name:"ជ្រុញជ្រុង 20cm x 25cm", price:0 ,category:"Wood", img:"image/woods/18.jpg"},
+
+  {id:94, name:"ជ្រុញជ្រុង 22cm x 28cm", price:0 ,category:"Wood", img:"image/woods/19.jpg"},
+
+  {id:95, name:"ជ្រុញជ្រុង 24cm x 35cm", price:0 ,category:"Wood", img:"image/woods/20.jpg"},
+
+  {id:96, name:"ជ្រុញជ្រុង 26cm x 37cm", price:0 ,category:"Wood", img:"image/woods/21.jpg"},
+
+  {id:97, name:"ជ្រុញជ្រុង 28cm x 39cm", price:0 ,category:"Wood", img:"image/woods/22.jpg"},
+
+  {id:98, name:"ត្បាល់ឈើ 15", price:0 ,category:"Wood", img:"image/woods/9.jpg"},
+
+  {id:99, name:"ត្បាល់ឈើ 16", price:0 ,category:"Wood", img:"image/woods/10.jpg"},
+
+  {id:100, name:"ត្បាល់ឈើ 17", price:0 ,category:"Wood", img:"image/woods/11.jpg"},
+
+  {id:101, name:"ត្បាល់ឈើ 18", price:0 ,category:"Wood", img:"image/woods/12.jpg"},
+
+  {id:102, name:"ត្បាល់ឈើ 19", price:0 ,category:"Wood", img:"image/woods/13.jpg"},
+  
+  {id:103, name:"ចង្កឹះឈើមាស", price:0 ,category:"Wood", img:"image/woods/15.jpg"},
+
+  // ================= STAVES  =================
+
+  {id:160, name:"ចង្ក្រានហ្គាស 01",price:5.9 ,category:"Staves",img:"image/stave/1.jpg"},
+
+  {id:161, name:"ចង្ក្រានហ្គាសខ្មៅ​ ",price:0 ,category:"Staves",img:"image/stave/2.jpg"},
+
+  {id:162, name:"ចង្ក្រានហ្គាស 02",price:5.5 ,category:"Staves",img:"image/stave/5.jpg"},
+
+  {id:163, name:"ចង្ក្រានហ្គាសខ្មៅ Namilux",price:9.5 ,category:"Staves",img:"image/stave/3.jpg"},
+
+  {id:164, name:"ចង្ក្រានINOX Namilux",price:11.5 ,category:"Staves",img:"image/stave/4.jpg"},
+
+  {id:165, name:"ចង្ក្រានហ្គាសជើងកន្ថោ 5kg",price:24.5 ,category:"Staves",img:"image/stave/6.jpg"},
+
+  {id:166, name:"ចង្ក្រានហ្គាស 5kg",price:23.5 , category:"Staves",img:"image/stave/13.jpg"},
+
+  {id:167, name:"ចង្ក្រានហ្គាស  5kg",price:23.5 , category:"Staves",img:"image/stave/7.jpg"},
+
+  {id:168, name:"ជញ្ជីងថ្លឹងមនុស្ស",price:5 ,category:"Staves",img:"image/stave/8.jpg"},
+
+  {id:169, name:"ស្រាក់រក្សាកំក្តៅ​​ 2ថត",price:0 ,category:"Staves",img:"image/stave/9.jpg"},
+
+  {id:170, name:"ស្រាក់រក្សាកំក្តៅ​​ 3ថត",price:4.25 , category:"Staves",img:"image/stave/10.jpg"},
+
+  {id:171, name:"ស្រាក់រក្សាកំក្តៅ​​ 4ថត",price:4.6 ,category:"Staves",img:"image/stave/11.jpg"},
+
+  {id:172, name:"ស្រាក់រក្សាកំក្តៅ​​ជ្រុង 3ថត",price:4.6 ,category:"Staves",img:"image/stave/12.jpg"},
+
+  {id:173, name:"បាញ់កំហ្គាស់",price:2 ,category:"Staves",img:"image/stave/14.jpg"},
+
+  {id:174, name:"ជញ្ជីងយូរដៃ 10kg",price:1.5 ,category:"Staves",img:"image/stave/15.jpg"},
+
+  // ================= PLASTICs  =================
+
+  {id:260, name:"ព្យួអាវក្មេងបត់",price:0 ,category:"Plastics",img:"image/plastic/1.jpg"},
+
+  {id:261, name:"កន្ត្រកខោអាវធំ​ TYLIEN", price:0 ,category:"Plastics",img:"image/plastic/2.jpg"},
+
+  {id:262, name:"ធុងជ្រុងគ្រើម 24L",price:20 ,category:"Plastics",img:"image/plastic/3.jpg"},
+
+  {id:263, name:"សូ 0816",price:1.55 ,category:"Plastics",img:"image/plastic/4.jpg"},
+
+  {id:264, name:"សូ 0817",price:2.15 ,category:"Plastics",img:"image/plastic/5.jpg"},
+
+  {id:265, name:"សូ 0818",price:3.15 ,category:"Plastics",img:"image/plastic/6.jpg"},
+
+  {id:266, name:"សូ 0819",price:4.5 ,category:"Plastics",img:"image/plastic/7.jpg"},
+
+  {id:267, name:"ធុងជូតផ្ទះអ៊ីណុក",price:11.5 ,category:"Plastics",img:"image/plastic/8.jpg"},
+
+  {id:268, name:"ធុងទឹក TYLIEN 60L",price:4.3 ,category:"Plastics",img:"image/plastic/9.jpg"},
+
+  {id:269, name:"កន្ត្រកគ្របធំ",price:0,category:"Plastics",img:"image/plastic/10.jpg"},
+
+  {id:270, name:"កន្ត្រកគ្របតូច",price:0 ,category:"Plastics",img:"image/plastic/11.jpg"},
+
+  {id:271, name:"ស្នើដាក់សាប៊ូបេះដូង 2ជាន់",price:0 ,category:"Plastics",img:"image/plastic/12.jpg"},
+
+  {id:272, name:"ស្នើដាក់សាប៊ូបេះដូង 3ជាន់",price:0 ,category:"Plastics",img:"image/plastic/13.jpg"},
+
+  {id:273, name:"ស្នើដាក់សាប៊ូបេះដូង 4ជាន់",price:4 ,category:"Plastics",img:"image/plastic/14.jpg"},
+
+  {id:274, name:"ស្នើដាក់សាប៊ូកោង 4ជាន់", price:2.5 ,category:"Plastics",img:"image/plastic/15.jpg"},
+
+  {id:275, name:"ធុង 798",price:13.5 ,category:"Plastics",img:"image/plastic/16.jpg"},
+
+  // ================= POT  =================
+
+  {id:360, name:"ឆ្នាំងលេខដៃមូល 26",price:4.3 ,category:"Pot",img:"image/pot/4.jpg"},
+
+  {id:361, name:"ចាប់ទឹកកកអ៊ីណុកតូច",  price:0.8 ,category:"Pot",img:"image/pot/1.jpg"},
+  
+  {id:362, name:"ចាប់ទឹកកកអ៊ីណុកកណ្តាល",price:1 ,category:"Pot",img:"image/pot/2.jpg"},
+
+  {id:363, name:"ចាប់ទឹកកកអ៊ីណុកធំ",price:1.5 ,category:"Pot",img:"image/pot/3.jpg"},
+
+  {id:364, name:"ខ្ទះសំបុកឃ្មុំ 28",price:5 ,category:"Pot",img:"image/pot/5.jpg"},
+
+  {id:365, name:"ខ្ទះសំបុកឃ្មុំ 30",price:5.5 ,category:"Pot",img:"image/pot/6.jpg"},
+
+  {id:366, name:"ខ្ទះសំបុកឃ្មុំ 32",price:6.5 ,category:"Pot",img:"image/pot/7.jpg"},
+
+  {id:367, name:"ឆ្នាំងភ្លើង 24",price:1.5 ,category:"Pot",img:"image/pot/8.jpg"},
+
+  {id:368, name:"ឆ្នាំងភ្លើង 22",price:1.5 ,category:"Pot",img:"image/pot/9.jpg"},
+
+  {id:369, name:"កន្ធុនINOX 50 ",price:0 ,category:"Pot",img:"image/pot/10.jpg"},
+
+  {id:370, name:"ឆ្នាំងដៃមូល 18",price:2.5 ,category:"Pot",img:"image/pot/11.jpg"},
+
+  {id:371, name:"កន្ធុនINOX 30",price:0 ,category:"Pot",img:"image/pot/12.jpg"},
+
+  {id:372, name:"ឆ្នាំងដៃមូល 20",price:4 ,category:"Pot",img:"image/pot/13.jpg"},
+
+  {id:373, name:"កន្ធុនINOX 55",price:0 ,category:"Pot",img:"image/pot/14.jpg"},
+
+  {id:374, name:"កន្ធុនINOX 40",price:0 ,category:"Pot",img:"image/pot/15.jpg"},
+
+  {id:375, name:"កន្ធុនINOX 36",price:0 ,category:"Pot",img:"image/pot/16.jpg"},
+
+  {id:376, name:"កន្ធុនINOX 45",price:0 ,category:"Pot",img:"image//pot/17.jpg"},
+
+  {id:377, name:"កន្ធុនINOX 28",price:0 ,category:"Pot",img:"image//pot/18.jpg"}
+
+];
+
+function toggleMenu() {
+
+  let sidebar = document.getElementById("sidebar");
+
+  if (sidebar.classList.contains("-translate-x-full")) {
+
+    sidebar.classList.remove("-translate-x-full");
+
+  } else {
+
+    sidebar.classList.add("-translate-x-full");
+
+  }
+}
+
+// auto generate products
+for(let i=4;i<=200;i++){
+  products.push({
+    id:i,
+    name:"Product" + i,
+    price:20,
+    img:"image/products/stave/"+i+".JPG"
+  });
+}
+
+// ================= STATE =================
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let filter = "";
+let currentPage = 1;
+const perPage = 160;
+
+// ================= SEARCH =================
+function searchProduct(){
+  filter = document.getElementById("search").value.toLowerCase().trim();
+  currentPage = 1;
+  renderProducts();
+}
+
+// ================= FILTER =================
+function filterCategory(cat){
+  filter = cat.toLowerCase();
+  currentPage = 1;
+  renderProducts();
+}
+
+// ================= RENDER PRODUCTS =================
+function renderProducts(){
+
+  const filtered = products.filter(p =>
+    (p.name || "").toLowerCase().includes(filter) ||
+    (p.category || "").toLowerCase().includes(filter)
+  );
+
+  const start = (currentPage - 1) * perPage;
+  const paginated = filtered.slice(start, start + perPage);
+
+  document.getElementById("products").innerHTML =
+    paginated.map(p => `
+      <div class="bg-white text-sm p-3 rounded-lg shadow hover:shadow-lg transition z-30">
+      
+        <img src="${p.img}"
+         loading="lazy"
+         alt="product"
+         onload="this.classList.remove('blur-lg','scale-105')"
+         class="w-full aspect-square object-cover rounded-xl 
+         bg-gray-200 blur-lg scale-105 hover:scale-105 transition duration-300">
+        <h3 class="mt-2 ">${p.name}</h3>
+        <p>${p.category}</p>
+        <p>$${p.price}</p>
+        <button onclick="addToCart(${p.id})"
+          class="bg-blue-500 text-white h-10 w-full mt-2">
+          Add
+        </button>
+      </div>
+    `).join("");
+
+  renderPagination(filtered.length);
+}
+
+// ================= PAGINATION =================
+function renderPagination(total){
+  const pages = Math.ceil(total / perPage);
+  let html = "";
+
+  for(let i=1;i<=pages;i++){
+    html += `
+      <button onclick="goPage(${i})"
+        class="px-2 ${i===currentPage?'font-bold':''}">
+        ${i}
+      </button>
+    `;
+  }
+
+  document.getElementById("pagination").innerHTML = html;
+}
+
+function goPage(p){
+  currentPage = p;
+  renderProducts();
+}
+
+// ================= CART =================
+function addToCart(id){
+  const item = cart.find(p => p.id === id);
+
+  if(item){
+    item.qty++;
+  } else {
+    cart.push({...products.find(p => p.id === id), qty:1});
+  }
+
+  save();
+}
+
+function changeQty(id, n){
+  const item = cart.find(p => p.id === id);
+  if(!item) return;
+
+  item.qty += n;
+
+  if(item.qty <= 0){
+    cart = cart.filter(p => p.id !== id);
+  }
+
+  save();
+}
+
+function save(){
+  localStorage.setItem("cart", JSON.stringify(cart));
+  renderCart();
+  updateCount();
+}
+
+function renderCart(){
+  const box = document.getElementById("cartItems");
+  let total = 0;
+
+  box.innerHTML = cart.map(p => {
+    total += p.price * p.qty;
+
+    return `
+      <div class="flex justify-between">
+        <span>${p.name} (${p.qty})</span>
+        <div>
+          <button onclick="changeQty(${p.id},-1)">-</button>
+          <button onclick="changeQty(${p.id},1)">+</button>
+        </div>
+      </div>
+    `;
+  }).join("");
+
+  document.getElementById("total").innerText = total;
+}
+
+function updateCount(){
+  document.getElementById("count").innerText =
+    cart.reduce((s,p)=>s+p.qty,0);
+}
+
+function clearCart(){
+  cart = [];
+  localStorage.removeItem("cart");
+  renderCart();
+  updateCount();
+}
+
+// ================= UI =================
+
+function toggleCart(){
+  document.getElementById("cartPanel")
+  .classList.toggle("translate-x-full");
+  overlay.classList.toggle("hidden");
+}
+
+function toggleSidebar(){
+  document.getElementById("sidebar")
+  .classList.toggle("-translate-x-full");
+  overlay.classList.toggle("hidden");
+}
+// ================= TETEGRAM =================
+function sendTelegram(){
+
+  const token = "";
+  const chatId = "";
+
+  if(cart.length === 0){
+    alert("Cart is empty!");
+    return;
+  }
+
+  let msg = "🛒 New Order:\n\n";
+
+  cart.forEach(p=>{
+    msg += `• ${p.name} x${p.qty} = $${p.price * p.qty}\n`;
+  });
+
+  let total = cart.reduce((sum,p)=>sum + p.price * p.qty, 0);
+  msg += `\n💰 Total: $${total}`;
+
+  fetch(`https://api.telegram.org/bot${token}/sendMessage`,{
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body: JSON.stringify({
+      chat_id: chatId,
+      text: msg
+    })
+  })
+  .then(()=>alert("Order sent ✅"))
+  .catch(()=>alert("Error ❌"));
+}
+
+// ================= PDF =================
+let invoiceCounter = Number(localStorage.getItem("invoiceCounter")) || 0;
+function printInvoice(){
+
+  if(cart.length === 0){
+    alert("Cart is empty!");
+    return;
+  }
+
+  const invoice = document.getElementById("invoice");
+
+  // ================= AUTO INVOICE NUMBER =================
+  invoiceCounter++;
+  localStorage.setItem("invoiceCounter", invoiceCounter);
+
+  const invoiceNo = "INV-" + String(invoiceCounter).padStart(4, "0");
+
+  // ================= CUSTOMER NAME =================
+  const customerName =
+    prompt("Enter Customer Name:") || "Walk-in Customer";
+
+  // ================= DATE TIME =================
+  const now = new Date();
+  const dateTime = now.toLocaleString();
+
+  let total = 0;
+  let isEven = false;
+
+  let html = `
+
+  <div style="font-family:Arial;padding:20px;width:700px;">
+
+    <!-- HEADER -->
+    <div style="text-align:center;margin-bottom:20px;">
+      <h1 style="color:#2563eb;font-size:28px;margin:0;">
+        SEVEN KHMER
+      </h1>
+
+      <p>Phnom Penh, Cambodia</p>
+      <p>Tel: 012 968 728</p>
+
+      <h2 style="margin-top:10px;">INVOICE</h2>
+    </div>
+
+    <!-- INFO BOX -->
+    <div style="
+      display:flex;
+      justify-content:space-between;
+      margin-bottom:15px;
+      font-size:14px;
+    ">
+
+      <div>
+        <b>Invoice No:</b> ${invoiceNo}<br>
+        <b>Date:</b> ${dateTime}
+      </div>
+
+      <div>
+        <b>Customer:</b><br>
+        ${customerName}
+      </div>
+
+    </div>
+
+    <!-- TABLE -->
+    <table style="
+      width:100%;
+      border-collapse:collapse;
+      font-size:14px;
+    ">
+
+      <thead>
+        <tr style="background:#2563eb;color:white;">
+          <th style="padding:10px;text-align:left;">Product</th>
+          <th>Qty</th>
+          <th>Price</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+
+      <tbody>
+  `;
+
+  // ================= ITEMS =================
+  cart.forEach(p=>{
+
+    const itemTotal = p.price * p.qty;
+    total += itemTotal;
+
+    html += `
+      <tr style="background:${isEven ? '#f9fafb':'#fff'}">
+
+        <td style="padding:10px;border-bottom:1px solid #eee;">
+          ${p.name}
+        </td>
+
+        <td style="text-align:center;border-bottom:1px solid #eee;">
+          ${p.qty}
+        </td>
+
+        <td style="text-align:center;border-bottom:1px solid #eee;">
+          $${p.price}
+        </td>
+
+        <td style="
+          text-align:center;
+          color:#2563eb;
+          font-weight:bold;
+          border-bottom:1px solid #eee;
+        ">
+          $${itemTotal.toFixed(2)}
+        </td>
+
+      </tr>
+    `;
+
+    isEven = !isEven;
+  });
+
+  // ================= FOOTER =================
+  html += `
+      </tbody>
+    </table>
+
+    <div style="
+      margin-top:20px;
+      text-align:right;
+      font-size:18px;
+      font-weight:bold;
+    ">
+      Grand Total:
+      <span style="color:#2563eb;">
+        $${total.toFixed(2)}
+      </span>
+    </div>
+
+    <p style="
+      margin-top:30px;
+      text-align:center;
+      color:gray;
+      font-size:12px;
+    ">
+      Thank you for shopping with SEVEN KHMER ❤️
+    </p>
+
+  </div>
+
+  `;
+
+  document.getElementById("invoiceItems").innerHTML = html;
+
+  invoice.classList.remove("hidden");
+
+  html2canvas(invoice, { scale: 2 }).then(canvas=>{
+
+    const imgData = canvas.toDataURL("image/png");
+
+    const { jsPDF } = window.jspdf;
+
+    const doc = new jsPDF("p","mm","a4");
+
+    const imgWidth = 190;
+
+    const imgHeight =
+      (canvas.height * imgWidth) / canvas.width;
+
+    doc.addImage(imgData, "PNG", 10, 10, imgWidth, imgHeight);
+
+    doc.save(`${invoiceNo}.pdf`);
+
+    invoice.classList.add("hidden");
+
+  });
+
+}
+
+// ADMIN
+
+function addProduct(){
+
+      let name = document.getElementById("pName").value;
+      let price = document.getElementById("pPrice").value;
+
+      // check empty
+      if(name === "" || price === ""){
+        alert("Please fill all fields");
+        return;
+      }
+
+      // product card
+      let product = `
+        <div class="bg-white p-4 rounded shadow">
+          <h3 class="font-bold text-lg">${name}</h3>
+          <p class="text-blue-600">$${price}</p>
+        </div>
+      `;
+
+      // show product
+      document.getElementById("productList").innerHTML += product;
+
+      // clear input
+      document.getElementById("pName").value = "";
+      document.getElementById("pPrice").value = "";
+
+}
+
+// ================= QR =================
+function showQR(){
+  document.getElementById("qrBox").classList.toggle("hidden");
+}
+// ================= INIT =================
+renderProducts();
+renderCart();
+updateCount();
+</script>
+  
+</body>
+<footer class="bg-gray-900 text-gray-300 mt-10">
+  <div class="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-4 gap-8">
+
+    <!-- 🛍️ Brand -->
+    <div>
+      <h2 class="text-xl font-bold text-white">Seven Khmer</h2>
+      <p class="mt-3 text-sm">
+        Best online shop for electronics & home appliances in Cambodia.
+      </p>
+    </div>
+
+    <!-- 🔗 Quick Links -->
+    <div>
+      <h3 class="text-white font-semibold mb-3">Quick Links</h3>
+      <ul class="space-y-2 text-sm">
+        <li><a href="index.html" class="hover:text-white">Home</a></li>
+        <li><a href="Contact.html" class="hover:text-white">Contact</a></li>
+        <li><a href="promo.html" class="hover:text-white">Promotion</a></li>
+        <li><a href="products.html" class="hover:text-white">Products</a></li>
+      </ul>
+    </div>
+
+          <!-- 📦 Categories -->
+    <div>
+      <h3 class="text-white font-semibold mb-3">Categories</h3>
+      <ul class="space-y-2 text-sm">
+        <li><a href="#" class="hover:text-white">Electronics</a></li>
+        <li><a href="#" class="hover:text-white">Appliances</a></li>
+        <li><a href="#" class="hover:text-white">Kitchen</a></li>
+        <li><a href="#" class="hover:text-white">Accessories</a></li>
+      </ul>
+    </div>
+
+    <!-- 📞 Contact -->
+    <div>
+      <h3 class="text-white font-semibold mb-3">Contact</h3>
+      <p class="text-sm">📍 Phnom Penh, Cambodia</p>
+      <p class="text-sm">📞 012 968 728</p>
+      <p class="text-sm">✉️ phinrithy100744@gmail.com</p>
+
+      <!-- 🌐 Social -->
+      <div class="flex gap-3 mt-4 text-lg">
+        <a href="#" class="hover:text-white"><i class="fab fa-facebook"></i></a>
+        <a href="#" class="hover:text-white"><i class="fab fa-telegram"></i></a>
+        <a href="#" class="hover:text-white"><i class="fab fa-tiktok"></i></a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 🔻 Bottom -->
+  <div class="border-t border-gray-700 text-center py-4 text-sm">
+    © 2026 Seven Kher. All rights reserved.
+  </div>
+</footer>
+</html>
