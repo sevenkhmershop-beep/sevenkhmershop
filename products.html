@@ -6,7 +6,7 @@
 <title>SEVEN KHMER SHOP</title>
 
 <!-- Custom CSS -->
-<link rel="stylesheet" href="style.css?v=6">
+<link rel="stylesheet" href="style.css?v=7">
 
 <!---Google Font--->
 <link href="https://fonts.googleapis.com/css2?family=Koulen&family=Battambang&display=swap" rel="stylesheet">
@@ -632,16 +632,18 @@ function clearCart(){
 }
 
 // ================= UI =================
+
 function toggleCart(){
   document.getElementById("cartPanel")
-    .classList.toggle("translate-x-full");
+  .classList.toggle("translate-x-full");
+  overlay.classList.toggle("hidden");
 }
 
 function toggleSidebar(){
   document.getElementById("sidebar")
-    .classList.toggle("-translate-x-full");
+  .classList.toggle("-translate-x-full");
+  overlay.classList.toggle("hidden");
 }
-
 // ================= TETEGRAM =================
 function sendTelegram(){
 
@@ -906,10 +908,10 @@ updateCount();
     <div>
       <h3 class="text-white font-semibold mb-3">Quick Links</h3>
       <ul class="space-y-2 text-sm">
-        <li><a href="index.html " class="hover:text-white">Home</a></li>
-        <li><a href="Contact.html " class="hover:text-white">Contact</a></li>
-        <li><a href="promo.html " class="hover:text-white">Promotion</a></li>
-        <li><a href="products.html " class="hover:text-white">Products</a></li>
+        <li><a href="index.html" class="hover:text-white">Home</a></li>
+        <li><a href="Contact.html" class="hover:text-white">Contact</a></li>
+        <li><a href="promo.html" class="hover:text-white">Promotion</a></li>
+        <li><a href="products.html" class="hover:text-white">Products</a></li>
       </ul>
     </div>
 
