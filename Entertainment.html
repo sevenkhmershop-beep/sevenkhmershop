@@ -4,20 +4,40 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Cinetix Entertainment</title>
+<title> Entertainment</title>
 
-<!-- TailwindCSS -->
+<!---Google Font--->
+<link href="https://fonts.googleapis.com/css2?family=Koulen&family=Battambang&display=swap" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+<!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
 
 <!-- Custom CSS -->
-<link rel="stylesheet" href="style.css?v=1">
+<link rel="stylesheet" href="style.css?v=2">
 
-<!-- Font Awesome -->
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+<!-- Leaflet Routing Machine CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css"/>
 
-<!-- Google Font -->
-<link href="https://fonts.googleapis.com/css2?family=Battambang:wght@300;400;700&family=Koulen&display=swap" rel="stylesheet">
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<!-- Leaflet Providers -->
+<script src="https://unpkg.com/leaflet-providers@1.13.0/leaflet-providers.js"></script>
+
+<!-- SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<!-- Leaflet Routing Machine -->
+<script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
 
 <style>
 
@@ -76,30 +96,37 @@ Cinetix
     class="w-full px-4 py-3 rounded-xl bg-gray-800 text-white outline-none">
 </div>
 
-<div class="hidden md:flex items-center gap-5 text-sm md:text-xs">
+<div class="hidden md:flex items-center gap-4 text-sm md:text-lg">
 
-<a href="index.html " class="hover:text-orange-400 transition">
+<a href="index.html" class="hover:text-orange-400 transition">
 🏠 Home
 </a>
 
-<a href="promo.html " class="hover:text-orange-400 transition">
+<a href="promo.html" class="hover:text-orange-400 transition">
   <i class="fas fa-tag text-lg"></i>
   <span>Promotion</span>
 </a>
 
-<a href="Contact.html " class="hover:text-orange-400 transition">
+<a href="Contact.html" class="hover:text-orange-400 transition">
   <i class="fas fa-headset text-lg"></i>
   <span>Contact</span>
 </a>
 
-<a href="products.html " class="hover:text-orange-400 transition">
+<a href="products.html" class="hover:text-orange-400 transition">
   <span class="text-xl">🛒</span>
   <span>Products</span>
 </a>
 
-<a href="Entertainment.html " class="hover:text-orange-400 transition">
+<a href="Entertainment.html" class="hover:text-orange-400 transition">
 🎬 Movies
 </a>
+
+
+<a href="wallpaper.html"
+   class="hover:text-blue-600 transition flex items-center gap-1">
+  🖼️ Wallpaper
+</a>
+
 </div>
 
 </div>
@@ -139,7 +166,7 @@ transition-all duration-300 ease-in-out">
       </div>
 
       <div>
-        <h1 class="font-bold text-lg">MyShop Pro</h1>
+        <h1 class="font-bold text-lg">SEVEN KHMER</h1>
         <p class="text-xs text-gray-400">Online Store</p>
       </div>
     </div>
@@ -196,6 +223,14 @@ transition-all duration-300 ease-in-out">
       <span>Entertainment</span>
     </a>
 
+    <a href="wallpaper.html"
+    class="flex items-center gap-3 p-3 rounded-xl
+    hover:bg-red-600 transition duration-300">
+
+      <span class="text-xl">🖼️ </span>
+      <span>Wallpaper</span>
+    </a>
+
   </div>
 
   <!-- Bottom Section -->
@@ -225,11 +260,16 @@ transition-all duration-300 ease-in-out">
 
 <div class="rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
 
-<video id="featuredVideo" class="w-full aspect-video" controls poster="https://images.pexels.com/photos/7991579/pexels-photo-7991579.jpeg">
+<iframe
+id="featuredVideo"
 
-<source src="video/song.mp4" type="video/mp4">
-
-</video>
+class="w-full aspect-video youtubePlayer"
+src="https://www.youtube.com/embed/le20G8aOzsQ"
+title="YouTube video player"
+frameborder="0"
+allow="autoplay"
+allowfullscreen>
+</iframe>
 
 <div id="playlist" class="space-y-4 max-h-[500px] overflow-y-auto"></div>
 
@@ -254,7 +294,7 @@ transition-all duration-300 ease-in-out">
 <button id="likeBtn"
 class="bg-gray-800 hover:bg-gray-700 px-5 py-2 rounded-full flex items-center gap-2 transition">
 
-<i class="far fa-heart text-red-400"></i>
+<i id="heartIcon" class="far fa-heart text-red-400"></i>
 
 <span id="likeCount">128</span>
 
@@ -288,115 +328,23 @@ LIVE
 
 </div>
 
-
-
-
-<!-- ITEM -->
 <div
-class="playlist-item flex gap-3 cursor-pointer bg-gray-800/40 hover:bg-gray-700/60 p-2 rounded-2xl transition"
-data-video-src="video/1.mp4"
-data-video-title="Big Buck Bunny">
+id="playlist"
+class="space-y-4 max-h-[500px] overflow-y-auto p-2 scroll-smooth">
 
-<img
-src="https://images.pexels.com/photos/2558605/pexels-photo-2558605.jpeg?auto=compress&cs=tinysrgb&w=200"
-class="w-32 h-20 object-cover rounded-xl">
+  <!-- Loading -->
+  <div class="text-center text-gray-400 py-10 animate-pulse">
 
-<div>
+    <i class="fas fa-video text-4xl mb-3 text-orange-400"></i>
 
-<h4 class="font-semibold text-sm">
-Big Buck Bunny
-</h4>
+    <p class="text-sm">
+      Loading Videos...
+    </p>
 
-<p class="text-xs text-gray-400 mt-1">
-10:34 • 9.8M views
-</p>
-
-</div>
-
-</div>
-
-<!-- ITEM -->
-<div
-class="playlist-item flex gap-3 cursor-pointer bg-gray-800/40 hover:bg-gray-700/60 p-2 rounded-2xl transition"
-data-video-src="video/3.mp4"
-data-video-title="តាមបេះដូង">
-
-<img
-src="https://images.pexels.com/photos/220067/pexels-photo-220067.jpeg?auto=compress&cs=tinysrgb&w=200"
-class="w-32 h-20 object-cover rounded-xl">
-
-<div> <h4 class="font-semibold text-sm">
-តាមបេះដូង
-</h4>
-
-<p class="text-xs text-gray-400 mt-1">
-12:14 • 4.1M views
-</p>
-
-</div>
-
-</div>
-
-<!-- ITEM -->
-<div
-class="playlist-item flex gap-3 cursor-pointer bg-gray-800/40 hover:bg-gray-700/60 p-2 rounded-2xl transition"
-data-video-src="video/PHP1.mp4"
-data-video-title="មេរៀនទី១ PHP">
-
-<img
-src="video/MyPhoto.jpg"
-class="w-32 h-20 object-cover rounded-xl">
-
-<div> <h4 class="font-semibold text-sm">
-មេរៀនទី១ PHP
-</h4>
-
-<p class="text-xs text-gray-400 mt-1">
-12:14 • 4.1M views
-</p>
-
-</div>
-
-</div>
-
-<!-- ITEM -->
-<div
-class="playlist-item flex gap-3 cursor-pointer bg-gray-800/40 hover:bg-gray-700/60 p-2 rounded-2xl transition"
-data-video-src="video/4.mp4"
-data-video-title="ដកស្នេហ៍វិញចុះ">
-
-<img
-src="video/photo1.png"
-class="w-32 h-20 object-cover rounded-xl">
-
-<div>
-
-<h4 class="font-semibold text-sm">
-ដកស្នេហ៍វិញចុះ
-</h4>
-
-<p class="text-xs text-gray-400 mt-1">
-10:18 • 3.2M views
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
+  </div>
 
 </div>
 </section>
-
-<!--<audio id="bgMusic" loop>
-  <source src="music.mp3" type="audio/mp3">
-</audio>
-
-<button onclick="toggleMusic()" class="bg-orange-500 px-4 py-2 rounded-xl">
-🎵 Music
-</button> -->
 
 <!-- VIDEO GRID -->
 <section class="max-w-7xl mx-auto px-5 py-10">
@@ -410,7 +358,7 @@ class="w-32 h-20 object-cover rounded-xl">
 <!-- CARD -->
 <div
 class="video-card bg-gray-900 rounded-3xl overflow-hidden border border-white/10 hover:border-orange-500/40 cursor-pointer"
-data-video-src="video/song.mp4"
+data-video-src="https://www.youtube.com/embed/dQw4w9WgXcQ"
 data-video-title="Sintel Movie">
 
 <div class="relative overflow-hidden">
@@ -557,46 +505,74 @@ searchInput.addEventListener("input", function () {
 
 
 document.addEventListener("DOMContentLoaded", () => {
-
+  
   const featuredVideo = document.getElementById("featuredVideo");
   const videoTitle = document.getElementById("videoTitle");
   const playlist = document.getElementById("playlist");
 
-  // 👉 IMPORTANT: get <source> element (FIX FOR YOUR ISSUE)
-  const source = featuredVideo.querySelector("source");
-
   // 👉 VIDEO DATA
   const videos = [
     {
-      title: "Big Buck Bunny",
-      src: "video/1.mp4",
-      thumb: "https://images.pexels.com/photos/2558605/pexels-photo-2558605.jpeg"
-    },
-    {
-      title: "តាមបេះដូង",
-      src: "video/3.mp4",
+      title: "លាពៅសំណព្វ",
+      src: "https://www.youtube.com/embed/le20G8aOzsQ",
       thumb: "https://images.pexels.com/photos/220067/pexels-photo-220067.jpeg"
     },
     {
-      title: "មេរៀនទី១ PHP",
-      src: "video/PHP1.mp4",
-      thumb: "video/MyPhoto.jpg"
+      title: "តាមបេះដូង",
+      src: "https://www.youtube.com/embed/T-X0gmmJQCs",
+      thumb: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRV4ZUv-nmtvot2-TwgBBn43W3rzjvO4IiGSR3uyfeYYZFMMn3UWxUPjnY&s"
+    },
+    {
+      title: "ហួសពេលហើយអូន",
+      src: "https://www.youtube.com/embed//Db0NhEtOUPU",
+      thumb: "data:image/jpeg;base64,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"
     },
     {
       title: "ដកស្នេហ៍វិញចុះ",
-      src: "video/4.mp4",
+      src: "https://www.youtube.com/embed/DX7iHASSUdU",
       thumb: "video/photo1.png"
     },
 
     {
       title: "និស្ស័យស្នេហ៍",
-      src: "video/2.mp4",
-      thumb: "https://images.pexels.com/photos/220067/pexels-photo-220067.jpeg"
-    }
+      src: "https://www.youtube.com/embed/0zmHHuxggak",
+      thumb: "data:image/jpeg;base64,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"
+    },
+
+    {
+      title: "នឹកភូមិភ្នំធំ",
+      src: "https://www.youtube.com/embed/Ludst38lJRc",
+      thumb: "https://i.ytimg.com/vi/Ludst38lJRc/hqdefault.jpg?sqp=-oaymwEnCNACELwBSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLCwdh2Cd1E8Q-xadX0M-gi-fK-vgg"
+    },
+
+    {
+      title: "បងគ្មានទរព្យធន",
+      src: "https://www.youtube.com/embed/HjRUsew4WhU",
+      thumb: "https://i.ytimg.com/vi/Tlc2tBuI3xA/hqdefault.jpg?sqp=-oaymwEnCNACELwBSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLCX6MouilMymtIkTr65yx1VPER66g"
+    },
+
+    {
+      title: "ទន្សោងគោព្រៃ",
+      src: "https://www.youtube.com/embed/70jyJ7l1vdw",
+      thumb: "https://i.ytimg.com/vi/T_4Halgojyc/hqdefault.jpg?sqp=-oaymwEnCNACELwBSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLBqxHnjwPkF4ctu3jYqXnGdalHAgA"
+    },
+
+    {
+      title: "ចាញ់ស្នេហ៍បង",
+      src: "https://www.youtube.com/embed/SPv8qv7R634",
+      thumb: "https://i.ytimg.com/vi/SPv8qv7R634/hqdefault.jpg?sqp=-oaymwExCNACELwBSFryq4qpAyMIARUAAIhCGAHwAQH4Af4JgALQBYoCDAgAEAEYLiA7KH8wDw==&rs=AOn4CLB9wEGwTApgUhic7a9TfSWr7jYaPQ"
+    },
+
+    {
+      title: "អូនគិតដល់បង",
+      src: "https://www.youtube.com/embed/PeCPYZM_J_8",
+      thumb: "https://i.ytimg.com/vi/PeCPYZM_J_8/hqdefault.jpg?sqp=-oaymwEwCKgBEF5IWvKriqkDIwgBFQAAiEIYAfABAfgB_gmAAqQFigIMCAAQARhQIFooZTAP&rs=AOn4CLDbR2_la5j0WOR_SCM1M4YDLaCONQ"
+    },
+
   ];
 
   playlist.innerHTML = "";
-
+    
   videos.forEach((v, index) => {
 
     const div = document.createElement("div");
@@ -607,7 +583,7 @@ document.addEventListener("DOMContentLoaded", () => {
     div.innerHTML = `
       <img src="${v.thumb}" class="w-32 h-20 object-cover rounded-xl">
       <div>
-        <h4 class="font-semibold text-sm">${v.title}</h4>
+        <h4 class="font-semibold text-lg">${v.title}</h4>
         <p class="text-xs text-gray-400 mt-1">Video ${index + 1}</p>
       </div>
     `;
@@ -615,13 +591,9 @@ document.addEventListener("DOMContentLoaded", () => {
     div.addEventListener("click", () => {
 
       // ✅ FIXED VIDEO SWITCH
-      source.src = v.src;
-      featuredVideo.load();
 
-      featuredVideo.play().catch(err => {
-        console.log("Autoplay blocked:", err);
-      });
-
+      featuredVideo.src = v.src;
+     
       videoTitle.innerText = v.title;
 
     });
@@ -652,7 +624,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const videoTitle = document.getElementById("videoTitle");
   const playlistItems = document.querySelectorAll(".playlist-item");
 
-  const source = featuredVideo.querySelector("source");
 
   playlistItems.forEach(item => {
 
@@ -663,13 +634,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (!videoSrc) return;
 
-      // ✅ change video correctly
-      source.src = videoSrc;
-      featuredVideo.load();
-
-      featuredVideo.play().catch(err => {
-        console.log("Play blocked:", err);
-      });
+       featuredVideo.src = videoSrc;
 
       videoTitle.innerText = title;
 
@@ -724,6 +689,8 @@ likeBtn.addEventListener("click", () => {
   }, 200);
 
 });
+
+
 </script>
 
 </body>
