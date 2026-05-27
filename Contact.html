@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>MyShop Pro - ទំនាក់ទំនងពួកយើង | ផែនទីច្បាស់</title>
+<title>Contact</title>
 
 <!---Google Font--->
 <link href="https://fonts.googleapis.com/css2?family=Koulen&family=Battambang&display=swap" rel="stylesheet">
@@ -18,7 +18,7 @@
 <script src="https://cdn.tailwindcss.com"></script>
 
 <!-- Custom CSS -->
-<link rel="stylesheet" href="style.css?v=1">
+<link rel="stylesheet" href="style.css?v=2">
 
 <!-- Leaflet Routing Machine CSS -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css"/>
@@ -87,34 +87,33 @@
 <!-- Navbar -->
 <nav class="bg-white/95 backdrop-blur-sm shadow-md sticky top-0 z-30 border-b border-gray-200">
 
-  <div class="max-w-6xl mx-auto flex justify-between items-center p-4 md:px-6">
+  <div class="max-w-6xl mx-auto flex justify-between items-center gap-1 p-4 md:px-6">
 
     <!-- Logo -->
-    <div class="flex items-center justify-center sm:justify-start gap-2 w-full sm:w-auto">
+    <div class=" flex items-center justify-center sm:justify-start gap-2 w-full sm:w-auto">
   
-    <i class="fas fa-store text-blue-600 text-2xl"></i>
+    <img class="rounded-xl w-11 h-11 md:w-20 md:h-20 " src="image/logo/150x150.png"  alt="LOGO">
 
-    <h1 class="text-xl font-extrabold bg-gradient-to-r from-blue-700 to-indigo-600 bg-clip-text text-transparent">
+    <img class="w-64 h-28 " src="image/logo/logo1.png">
+    <!-- <h1 class="text-xl font-extrabold bg-gradient-to-r from-blue-700 to-indigo-600 bg-clip-text text-transparent">
       SEVEN KHMER
-    </h1>
+    </h1> -->
 
   </div>
 
     <!-- Menu -->
-    <ul class="hidden sm:flex gap-6 font-medium text-sm sm:text-base text-gray-700">
+    <ul class="hidden sm:flex gap-4 font-medium text-sm md:text-lg text-gray-700 ">
 
       <li>
         <a href="index.html"
         class="hover:text-blue-600 transition flex items-center gap-1">
-          <i class="fas fa-home text-sm"></i>
           Home
         </a>
       </li>
 
       <li>
         <a href="promo.html"
-        class="text-blue-600 border-b-2 border-blue-500 pb-1 flex items-center gap-1">
-          <i class="fas fa-tag"></i>
+        class="hover:text-blue-600 flex items-center gap-1">
           Promotion
         </a>
       </li>
@@ -122,7 +121,6 @@
       <li>
         <a href="Contact.html"
         class="hover:text-blue-600 transition flex items-center gap-1">
-          <i class="fas fa-headset"></i>
           Contact
         </a>
       </li>
@@ -130,7 +128,6 @@
       <li>
         <a href="products.html"
         class="hover:text-blue-600 transition flex items-center gap-1">
-          <i class="fa-solid fa-cart-shopping"></i>
           Products
         </a>
       </li>
@@ -138,7 +135,14 @@
       <li>
         <a href="Entertainment.html"
         class="hover:text-blue-600 transition flex items-center gap-1">
-          🎬 Entertainment
+          Entertainment
+        </a>
+      </li>
+
+      <li>
+        <a href="wallpaper.html"
+        class="hover:text-blue-600 transition flex items-center gap-1">
+           Wallpaper
         </a>
       </li>
 
@@ -150,12 +154,12 @@
 
 <!-- Hamburger Button -->
 <button onclick="toggleMenu()"
-class="fixed top-2 left-4 z-30 
+class="fixed top-12 left-4 z-30 
 text-black w-12 h-12 shadow-xl
 hover:scale-105 active:scale-95 transition-all duration-300
 flex items-center justify-center sm:hidden">
 
-  <span class="text-2xl">☰</span>
+  <span class="text-3xl">☰</span>
 </button>
 
 <!-- Overlay -->
@@ -231,6 +235,14 @@ onclick="toggleMenu()"></div>
 
       <span class="text-xl">🎬</span>
       <span>Entertainment</span>
+    </a>
+
+    <a href="wallpaper.html"
+    class="flex items-center gap-3 p-3 rounded-xl
+    hover:bg-red-600 transition duration-300">
+
+      <span class="text-xl">🖼️ </span>
+      <span>Wallpaper</span>
     </a>
 
   </div>
@@ -499,7 +511,7 @@ onclick="toggleMenu()"></div>
 <!-- Footer -->
 <footer class="bg-gray-900 text-gray-300 mt-10 py-8 border-t border-gray-800">
   <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
-    <div class="flex items-center gap-2 text-white font-bold text-xl"><i class="fas fa-cart-shopping text-blue-400"></i><span>Seven Khmer</span></div>
+    <div class="flex items-center gap-2 text-white font-bold text-xl"><i> <img class="w-11 h-11" src="image/electronics/150x150.png" alt=""></i><span>Seven Khmer</span></div>
     <div class="flex gap-6 text-2xl">
       <a href="#" class="hover:text-blue-400 transition"><i class="fab fa-facebook"></i></a>
       <a href="#" class="hover:text-pink-400 transition"><i class="fab fa-instagram"></i></a>
