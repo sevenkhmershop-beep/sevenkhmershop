@@ -18,7 +18,7 @@
 <script src="https://cdn.tailwindcss.com"></script>
 
 <!-- Custom CSS -->
-<link rel="stylesheet" href="style.css?v=3">
+<link rel="stylesheet" href="style.css?v=4">
 
 <!-- Leaflet Routing Machine CSS -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css"/>
@@ -85,12 +85,12 @@
 <body class="bg-gradient-to-br from-gray-50 to-gray-100">
 
 <!-- Navbar -->
-<nav class="bg-white/95 backdrop-blur-sm shadow-md sticky top-0 z-30 border-b border-gray-200">
+<nav class="bg-white/95 backdrop-blur-sm shadow-md sticky z-30 border-b border-gray-200">
 
   <div class=" mx-auto flex justify-between items-center gap-6 p-3 md:px-6">
 
     <!-- Logo -->
-    <div class=" flex items-center justify-center sm:justify-center w-full sm:w-auto gap-0">
+    <div class=" flex items-center justify-center  w-full sm:w-auto gap-1">
   
     <img class="rounded-xl w-20 h-20 " src="image/logo/150x150.png"  alt="LOGO">
 
@@ -101,66 +101,87 @@
 
     </div>
 
-    <!-- Menu -->
-    <ul class="hidden sm:flex gap-2 md:gap-4 font-medium text-lg sm:text-sm  text-gray-700 font-medium">
-
-      <li>
-        <a href="index.html"
-        class="hover:text-blue-600 transition flex items-center gap-1">
-          Home
-        </a>
-      </li>
-
-      <li>
-        <a href="promo.html"
-        class="hover:text-blue-600 flex items-center gap-1">
-          Promotion
-        </a>
-      </li>
-
-      <li>
-        <a href="Contact.html"
-        class="hover:text-blue-600 transition flex items-center gap-1">
-          Contact
-        </a>
-      </li>
-
-      <li>
-        <a href="products.html"
-        class="hover:text-blue-600 transition flex items-center gap-1">
+    
+        <!-- MENU --> 
+  <ul class="hidden sm:flex gap-2 md:gap-4 text-gray-700 font-extrabold text-lg sm:text-sm"> 
+  
+        <!-- Home --> 
+    
+    <li> 
+      <a href="index.html" class="hover:text-blue-600 transition"> Home </a> </li> 
+      
+        <!-- Promotion --> 
+         
+    <li> 
+      
+      <a href="promo.html" class="hover:text-blue-600 transition"> Promotion </a> </li>
+           
+        <!-- Contact --> 
+      
+    <li> 
+      <a href="Contact.html" class="hover:text-blue-600 transition"> Contact </a> </li> 
+            
+        <!-- Products Dropdown --> 
+      
+    <li class="relative">
+               
+        <!-- Button -->
+      
+      <button id="dropdownBtn" class="hover:text-blue-600 transition flex items-center gap-1">
+          All Products
+      <i class="fa-solid fa-chevron-down text-xs"></i>
+    
+      </button> 
+                
+        <!-- Dropdown Menu --> 
+                 
+    <ul id="dropdownMenu" class="absolute -right-3 top-full mt-2 w-44 bg-white rounded-2xl shadow-2xl overflow-hidden hidden z-50">
+                   
+      <li> 
+                    
+        <a href="products.html" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition">       
           Products
         </a>
-      </li>
-
+                   
+      </li> 
+                   
       <li>
-        <a href="Entertainment.html"
-        class="hover:text-blue-600 transition flex items-center gap-1">
-          Entertainment
+                     
+       <a href="Entertainment.html" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition">           
+          Entertainment             
+        </a> 
+                     
+      </li> 
+                   
+      <li> 
+                    
+        <a href="wallpaper.html" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition">             
+          Wallpaper 
         </a>
-      </li>
-
-      <li>
-        <a href="wallpaper.html"
-        class="hover:text-blue-600 transition flex items-center gap-1">
-           Wallpaper
-        </a>
-      </li>
+                 
+      </li> 
 
     </ul>
+
+      </li>
+
+  </ul>
 
   </div>
 
 </nav>
 
 <!-- Hamburger Button -->
-<button onclick="toggleMenu()"
+<li onclick="toggleMenu()"
 class="fixed top-10 left-4 z-30 
-text-black w-12 h-12 shadow-xl
+list-none cursor-pointer
+text-black w-12 h-12 
 hover:scale-105 active:scale-95 transition-all duration-300
 flex items-center justify-center sm:hidden">
 
   <span class="text-3xl">☰</span>
-</button>
+
+</li>
 
 <!-- Overlay -->
 <div id="overlay"
@@ -539,6 +560,14 @@ function toggleMenu() {
 
   }
 }
+
+const dropdownBtn = 
+    document.getElementById("dropdownBtn"); 
+  const dropdownMenu = 
+    document.getElementById("dropdownMenu"); 
+    dropdownBtn.addEventListener("click", () => {
+    dropdownMenu.classList.toggle("hidden");
+});
 
 function toggleSidebar(){
   document.getElementById("sidebar")
