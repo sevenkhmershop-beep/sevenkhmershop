@@ -17,7 +17,7 @@
 <script src="https://cdn.tailwindcss.com"></script>
 
 <!-- Custom CSS -->
-<link rel="stylesheet" href="style.css?v=2">
+<link rel="stylesheet" href="style.css?v=3">
 
 <!-- Leaflet Routing Machine CSS -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css"/>
@@ -70,7 +70,7 @@
     <!-- Logo -->
     <div class="flex items-center justify-center sm:justify-start gap-2 w-full sm:w-auto">
   
-    <i><img class="w-11 h-11 md:w-20 md:h-20" src="image/logo/150x150.png" alt=""></i>
+    <img class="rounded-xl w-11 h-11 md:w-20 md:h-20 " src="image/logo/150x150.png"  alt="LOGO">
 
     <h1 class="text-xl font-extrabold bg-gradient-to-r from-blue-700 to-indigo-600 bg-clip-text text-transparent">
       SEVEN KHMER
@@ -78,57 +78,70 @@
 
   </div>
 
-    <!-- Menu -->
-    <ul class="hidden sm:flex gap-6 text-sm md:text-lg  text-gray-700 right-0">
-
-      <li>
-        <a href="index.html"
-        class="hover:text-blue-600 transition flex items-center gap-1">
-
-          Home
-        </a>
-      </li>
-
-      <li>
-        <a href="promo.html"
-        class="hover:text-blue-600 pb-1 flex items-center gap-1">
-
-          Promotion
-        </a>
-      </li>
-
-      <li>
-        <a href="Contact.html"
-        class="hover:text-blue-600 transition flex items-center gap-1">
-
-          Contact
-        </a>
-      </li>
-
-      <li>
-        <a href="products.html"
-        class="hover:text-blue-600 transition flex items-center gap-1">
-
+        <!-- MENU --> 
+  <ul class="hidden sm:flex gap-2 md:gap-4 text-gray-700 font-extrabold text-lg sm:text-sm"> 
+  
+        <!-- Home --> 
+    
+    <li> 
+      <a href="index.html" class="hover:text-blue-600 transition"> Home </a> </li> 
+      
+        <!-- Promotion --> 
+         
+    <li> 
+      
+      <a href="promo.html" class="hover:text-blue-600 transition"> Promotion </a> </li>
+           
+        <!-- Contact --> 
+      
+    <li> 
+      <a href="Contact.html" class="hover:text-blue-600 transition"> Contact </a> </li> 
+            
+        <!-- Products Dropdown --> 
+      
+    <li class="relative">
+               
+        <!-- Button -->
+      
+      <button id="dropdownBtn" class="hover:text-blue-600 transition flex items-center gap-1">
+          All Products
+      <i class="fa-solid fa-chevron-down text-xs"></i>
+    
+      </button> 
+                
+        <!-- Dropdown Menu --> 
+                 
+    <ul id="dropdownMenu" class="absolute -right-3 top-full mt-2 w-44 bg-white rounded-2xl shadow-2xl overflow-hidden hidden z-50">
+                   
+      <li> 
+                    
+        <a href="products.html" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition">       
           Products
         </a>
-      </li>
-
+                   
+      </li> 
+                   
       <li>
-        <a href="Entertainment.html"
-        class="hover:text-blue-600 transition flex items-center gap-1">
-           Entertainment
+                     
+       <a href="Entertainment.html" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition">           
+          Entertainment             
+        </a> 
+                     
+      </li> 
+                   
+      <li> 
+                    
+        <a href="wallpaper.html" class="block px-5 py-3 hover:bg-blue-50 hover:text-blue-600 transition">             
+          Wallpaper 
         </a>
-      </li>
-
-      <li>
-        <a href="wallpaper.html"
-        class="hover:text-blue-600 transition flex items-center gap-1">
-           Wallpaper
-        </a>
-      </li>
+                 
+      </li> 
 
     </ul>
 
+      </li>
+
+  </ul>
   </div>
 
 </nav>
@@ -141,7 +154,7 @@ text-black w-12 h-12
 hover:scale-105 active:scale-95 transition-all duration-300
 flex items-center justify-center sm:hidden">
 
-  <span class="text-3xl">☰</span>
+  <span class="text-5xl">☰</span>
 
 </li>
 
@@ -452,18 +465,40 @@ transition-transform duration-300 ease-in-out">
 <script>
 
   // JS Toggle 
-nn
 function toggleMenu() {
 
   let sidebar = document.getElementById("sidebar");
+  let overlay = document.getElementById("overlay");
 
   if (sidebar.classList.contains("-translate-x-full")) {
+
     sidebar.classList.remove("-translate-x-full");
+    overlay.classList.remove("hidden");
+
   } else {
+
     sidebar.classList.add("-translate-x-full");
+    overlay.classList.add("hidden");
+
   }
 }
 
+const dropdownBtn = 
+    document.getElementById("dropdownBtn"); 
+  const dropdownMenu = 
+    document.getElementById("dropdownMenu"); 
+    dropdownBtn.addEventListener("click", () => {
+    dropdownMenu.classList.toggle("hidden");
+});
+
+function toggleSidebar(){
+  document.getElementById("sidebar")
+    .classList.toggle("-translate-x-full");
+}
+function toggleSidebar(){
+  document.getElementById("sidebar")
+    .classList.toggle("-translate-x-full");
+}
 
   // Flash Sale Countdown Timer (24 hours from now)
   function startCountdown() {
